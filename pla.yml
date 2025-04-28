@@ -1,0 +1,36 @@
+---
+- name: Deploy Django Application with Docker from GitHub
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+      tags: docker_install
+
+    - name: Clone the GitHub repository
+      git:
+        repo: "https://github.com/HimakarC/practicing.git"
+        dest: /opt/my_django_app
+        version: main
+      tags: clone_repo
+
+    - name: Build Docker image
+      command: docker build -t my_django_app_image /opt/my_django_app
+      tags: build_image
+
+    - name: Stop running container (if any)
+      shell: |
+        docker ps -q --filter "name=my_django_app_container" | grep -q . && docker stop my_django_app_container || true
+      tags: stop_container
+
+    - name: Remove existing container (if any)
+      shell: |
+        docker ps -aq --filter "name=my_django_app_container" | grep -q . && docker rm my_django_app_container || true
+      tags: remove_container
+
+    - name: Start new container
+      shell: |
+        docker run -d --name my_django_app_container -p 8000:8000 my_django_app_image
+      tags: start_container
