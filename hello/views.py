@@ -17,3 +17,6 @@ def bring(request):
     b = request.GET["name"]
     c = a + b
     return render(request, "n.html", {'Name': c})
+    
+def health_check(request):
+    return HttpResponse("OK")
