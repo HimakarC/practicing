@@ -19,7 +19,7 @@ def bring(request):
     return render(request, "n.html", {'Name': c})
     
 def health_check(request):
-    return HttpResponse("OK")
+    return HttpResponse("OK", status=200)
 
 def my_view_1(request):
     """
@@ -32,3 +32,4 @@ def my_view_2(request):
     A view function for Service 2.
     """
     return HttpResponse("Hello from Service 2!")
+
