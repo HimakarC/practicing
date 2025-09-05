@@ -17,19 +17,3 @@ def bring(request):
     b = request.GET["name"]
     c = a + b
     return render(request, "n.html", {'Name': c})
-    
-def health_check(request):
-    return HttpResponse("OK", status=200)
-
-def my_view_1(request):
-    """
-    A view function for Service 1.
-    """
-    return HttpResponse("Hello from Service 1!")
-
-def my_view_2(request):
-    """
-    A view function for Service 2.
-    """
-    return HttpResponse("Hello from Service 2!")
-
