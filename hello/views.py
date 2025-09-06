@@ -6,6 +6,9 @@ from django.http import HttpResponse
 def home(request):
     return HttpResponse('Hi this is Himakar')
 
+def home2(request):
+    return HttpResponse('Hi this is Jyotsna')
+
 def add(request):
     a = request.GET["n1"]
     b = request.GET["n2"]
@@ -17,3 +20,4 @@ def bring(request):
     b = request.GET["name"]
     c = a + b
     return render(request, "n.html", {'Name': c})
+
